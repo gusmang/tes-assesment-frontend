@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app>
-      <sidebar />
+      <!-- <sidebar /> -->
       <navbar />
       <v-main>
         <v-layout row class="align-center layout px-4 pt-4 app--page-header">
@@ -23,14 +23,14 @@
 
 <script>
 import LottieAnimation from "lottie-vuejs/src/LottieAnimation.vue";
-import Sidebar from "./layout/sidebar.vue";
+//import Sidebar from "./layout/sidebar.vue";
 import Navbar from "./layout/navbar.vue";
 import Footbar from "./layout/footbar.vue";
 
 export default {
   components: {
     LottieAnimation,
-    Sidebar,
+    //Sidebar,
     Navbar,
     Footbar,
   },
@@ -38,4 +38,5 @@ export default {
 </script>
 
 <style>
+
 </style>

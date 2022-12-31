@@ -92,6 +92,7 @@ export default {
                     this.$store.commit("main/setLoading", false);
                     this.$store.commit("main/setSnackbarSuccess", "Add Data Member Successfull");
                     this.$store.state.member.member.dialogAdd = false;
+
                     this.fetch();
                 })
                 .catch((res) => {
@@ -105,8 +106,6 @@ export default {
             this.$store.commit("main/setLoading", true);
             this.loading = true;
             this.loadingtext = "Loading... Please wait";
-
-            //alert("limits "+this.pagination.itemsPerPage);
 
             this.$store
                 .dispatch("member/fetchListMember", {

@@ -16,7 +16,7 @@
         <v-card-text>Are you sure want to delete member ?</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="dialog = false">
+          <v-btn color="green darken-1" text @click="dialogDel = false;">
             Close
           </v-btn>
           <v-btn color="green darken-1" text @click="delMember(selectedId)">
@@ -263,6 +263,8 @@ export default {
         });
     },
     findMember(item) {
+      this.form.addPassword = "";
+
       this.form.userId = item.id
       this.form.editNama = item.nama_lengkap
       this.form.editEmail = item.email
