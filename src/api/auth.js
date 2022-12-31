@@ -10,7 +10,7 @@ export function apiGetOTP(data) {
 
 export function apiLogin(data) {
     return free_request({
-        url: 'api/masuk',
+        url: 'login-otp',
         method: 'POST',
         data: data
     })

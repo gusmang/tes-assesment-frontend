@@ -1,59 +1,35 @@
-import request_util from '../util/request'
-//tes
+import request_util from '../util/free_request'
 
 export function apiFetchListMember(data) {
     return request_util({
-        url: '/api/getdata',
-        method: 'POST',
-        data: data
-    })
-}
-export function apiEditProfiles(data) {
-    return request_util({
-        url: '/admin/member/totals',
+        url: '/show-input',
         method: 'POST',
         data: data
     })
 }
 
-export function apiUpdateProfiles(data) {
+export function apiEditMember(data) {
     return request_util({
-        url: '/api/updateprofil',
+        url: '/update-input',
         method: 'POST',
         data: data
     })
 }
 
-export function apiRegInstruktur(data) {
+export function apiAddMember(data) {
     return request_util({
-        url: '/api/register_instruktur',
+        url: '/add-input',
         method: 'POST',
         data: data
     })
 }
 
-export function apiUpdateInstruktur(data) {
+export function apiDelMember(data) {
     return request_util({
-        url: '/api/update_instruktur',
+        url: '/softdelete-member',
         method: 'POST',
         data: data
     })
 }
-
-export function apiFetchListRank(data) {
-    return request_util({
-        url: '/admin/member/rank',
-        method: 'POST',
-        data: data
-    })
-}
-
-export function apiGetProfiles() {
-    return request_util({
-        url: '/api/getprofil',
-        method: 'POST'
-    })
-}
-
 
 //export default function apiFetchListMember()

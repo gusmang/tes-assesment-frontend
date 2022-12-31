@@ -6,43 +6,33 @@
           <v-card class="elevation-12" color="rgb(12 66 1 / 74%)">
             <v-toolbar color="rgb(12 66 1 / 0%)" flat>
               <v-img
-                src="file:///Users/macbookpro/Documents/ssyukbelajar/Page_files/logo.png"
+                src="../assets/logodinaran-white.png"
                 max-height="80px"
                 style="margin-bottom: 20%"
                 contain
               >
               </v-img>
             </v-toolbar>
-            
-            <v-card-text>
-              <v-layout>
-                <v-row justify="center" style="color:#FFFFFF; margin-top:-40px; margin-bottom:30px;">
-                      <div> Login Dashboard </div>
-                </v-row>
-              </v-layout>
-              <v-form v-model="valid" ref="form" lazy-validation>
 
+            <v-card-text>
+              <v-form v-model="valid" ref="form" lazy-validation>
                 <v-text-field
                   name="email"
                   label="Email"
                   id="email"
-                  v-model="form.email"
                   :rules="emailRules"
-                  append-icon="mdi-email"
+                  v-model="form.email"
+                  append-icon="mdi-account"
+                  :disabled="$store.state.auth.isAdmin"
                   solo
                 ></v-text-field>
-
                 <v-text-field
-                  type="password"
-                  name="password"
-                  label="Password"
-                  id="password"
-                  :rules="passwordRules"
-                  v-model="form.password"
-                  append-icon="mdi-key"
+                  name="otp"
+                  label="OTP"
+                  v-model="form.otp"
+                  v-if="$store.state.auth.isAdmin"
                   solo
                 ></v-text-field>
-                
               </v-form>
             </v-card-text>
             <v-card-actions class="pb-5">
@@ -50,22 +40,23 @@
                 <v-btn
                   color="#107948"
                   block
-                  :loading="loading"
                   @click="doLogin"
-                  v-on:keyup.enter="onEnter"
                   dark
+                  x-large
+                  v-if="$store.state.auth.isAdmin"
                 >
                   Login
                 </v-btn>
                 <v-btn
                   class="mt-3"
-                  color="#107948"
                   block
-                  @click="doLogin"
+                  outlined
+                  :loading="loading"
+                  @click="sendOTP"
+                  v-on:keyup.enter="onEnter"
                   dark
-                  v-if="$store.state.auth.isAdmin"
                 >
-                  Login
+                  {{ buttonText }}
                 </v-btn>
               </v-flex>
             </v-card-actions>
@@ -88,9 +79,6 @@ export default {
           /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
           "E-mail must be valid",
       ],
-      passwordRules: [
-        (v) => !!v || "Password is required",
-      ],
       loading: false,
       buttonText: "Send OTP",
     };
@@ -104,7 +92,7 @@ export default {
   watch: {
     isLogin(value) {
       if (value) {
-        this.$router.push({ name: "List Gold Rates" });
+        this.$router.push({ name: "Main Dashboard" });
       }
     },
   },
@@ -132,12 +120,11 @@ export default {
       if (this.$refs.form.validate()) {
         this.$store
           .dispatch("auth/userLogin", {
-            temail: this.form.email,
-            tpass: this.form.password,
-            todo: "go_login",
+            email: this.form.email,
+            otp: this.form.otp,
           })
           .then(() => {
-            this.$router.push({ name: "Profile_Dash" });
+            this.$router.push({ name: "Main Dashboard" });
           })
           .catch((res) => {
             this.$store.commit(

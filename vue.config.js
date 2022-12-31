@@ -7,6 +7,6 @@ module.exports = {
   //   : '/',
   publicPath: '',
   devServer: {
-    proxy: 'https://yukbelajar.com'
+     proxy: 'https://balikencana-dev.com/api'
   }
 }

@@ -15,9 +15,20 @@
                     {{ $store.state.member.member.titlestab }}
                   </v-btn>
 
-                  <div style="float:right;">
+                  <div style="float:right;" v-if="$store.state.member.member.indexRank != '2'">
                     <v-btn color="success" small outlined>
                       <download-excel :data="itemsDetailWithIndex">
+                        <v-icon>mdi-download</v-icon> Export
+                      </download-excel>
+                    </v-btn>
+                    <v-btn color="success" class="sub-items-tables" small outlined @click="showList()">
+                      <v-icon>mdi-chevron-left</v-icon> Back to List
+                    </v-btn>
+                  </div>
+
+                  <div style="float:right;" v-if="$store.state.member.member.indexRank == '2'">
+                    <v-btn color="success" small outlined>
+                      <download-excel :data="itemsFormatExpWithIndex2">
                         <v-icon>mdi-download</v-icon> Export
                       </download-excel>
                     </v-btn>
@@ -42,6 +53,7 @@
                       <div> {{ item.index }} </div>
                     </template>
 
+
                     <!-- <template v-slot:[`item.name`]="{ item }">
                                             <div> <b>  {{ item.name }} </b> <br /> <div> <small>  {{ item.phone }} - {{ item.email }} </small> </div> </div>
                                         </template> -->
@@ -49,10 +61,16 @@
 
                   <v-data-table hide-default-footer disable-pagination disable-sort
                     v-if="$store.state.member.member.indexRank == '2'" :headers="headersactive"
-                    :items="itemsDetailWithIndex" :loading="loading" :loading-text="loadingtext">
+                    :items="itemsFormatWithIndex2" :loading="loading" :loading-text="loadingtext">
 
                     <template v-slot:[`item.index`]="{ item }">
                       <div> {{ item.index }} </div>
+                    </template>
+
+                    <template v-slot:[`item.name`]="{ item }">
+                      <div> <b> {{ item.name }} </b> <br />
+                        <div> <small> {{ item.phone }} - {{ item.email }} </small> </div>
+                      </div>
                     </template>
 
                   </v-data-table>
@@ -107,6 +125,7 @@
                         <div> <small> {{ item.phone }} - {{ item.email }} </small> </div>
                       </div>
                     </template>
+
                   </v-data-table>
 
                 </v-flex>
@@ -141,7 +160,7 @@
 
                 <v-flex md12 style="overflow-x: scroll">
                   <v-data-table hide-default-footer disable-pagination disable-sort :headers="headersactive"
-                    :items="itemsWithIndex2" :loading="loading" :loading-text="loadingtext">
+                    :items="itemsFormatWithIndex2" :loading="loading" :loading-text="loadingtext">
 
                     <template v-slot:[`item.index`]="{ item }">
                       <div> {{ item.index }} </div>
@@ -281,7 +300,7 @@ export default {
       headersactive: [
         { text: "#", value: "index" },
         { text: "Member", value: "name", align: "left" },
-        { text: "Active", align: "left", value: "total" }
+        { text: "Active", align: "left", value: "total_active" }
 
       ],
       headers_detail: [
@@ -315,7 +334,7 @@ export default {
           //this.provinsiList = this.$
         })
         .catch((res) => {
-          console.log("logs", res.response.data.message);
+          //console.log("logs" , res.response.data.message);
           this.$store.commit("main/setLoading", false);
           this.$store.commit("main/setSnackbarFail", res.response.data.message);
           this.loading = false;
@@ -433,12 +452,35 @@ export default {
           bal_gramasi: parseFloat(items.gramasi).toFixed(2)
         }))
     },
-    itemsWithIndex2() {
+    itemsFormatDetailWithIndex() {
+      return this.$store.state.member.member.rankListDetailBal.map(
+        (items, index) => ({
+          index: index + 1,
+          name: items.name,
+          email: items.email,
+          phone: items.phone,
+          bal_gramasi: parseFloat(items.gramasi).toFixed(2),
+          created_at: items.created_at
+        }))
+    },
+    itemsFormatWithIndex2() {
       return this.$store.state.member.member.rankListAct.map(
         (items, index) => ({
-          ...items,
           index: index + 1,
-          bal_gramasi: parseFloat(items.gramasi).toFixed(2)
+          name: items.name,
+          email: items.email,
+          phone: items.phone,
+          total_active: items.total
+        }))
+    },
+    itemsFormatExpWithIndex2() {
+      return this.$store.state.member.member.rankListAct.map(
+        (items, index) => ({
+          index: index + 1,
+          name: items.name,
+          email: items.email,
+          phone: items.phone,
+          total_active: items.total
         }))
     },
     itemsWithIndex3() {

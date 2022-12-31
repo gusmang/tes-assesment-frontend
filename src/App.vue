@@ -1,19 +1,39 @@
 <template>
   <v-app>
     <router-view />
-    <v-snackbar v-model="$store.state.main.snackbar.fail" color="error" :timeout="timeout" top>
+    <v-snackbar
+      v-model="$store.state.main.snackbar.fail"
+      color="error"
+      :timeout="timeout"
+      top
+    >
       {{ $store.state.main.snackbar.message }}
 
       <template v-slot:action="{ attrs }">
-        <v-btn dark text v-bind="attrs" @click="$store.commit('main/setSnackbarFail')">
+        <v-btn
+          dark
+          text
+          v-bind="attrs"
+          @click="$store.commit('main/setSnackbarFail')"
+        >
           Close
         </v-btn>
       </template>
     </v-snackbar>
-    <v-snackbar v-model="$store.state.main.snackbar.success" color="success" :timeout="timeout" top>
+    <v-snackbar
+      v-model="$store.state.main.snackbar.success"
+      color="success"
+      :timeout="timeout"
+      top
+    >
       {{ $store.state.main.snackbar.message }}
       <template v-slot:actions="{ attrs }">
-        <v-btn dark text v-bind="attrs" @click="$store.commit('main/setSnackbarSuccess')">
+        <v-btn
+          dark
+          text
+          v-bind="attrs"
+          @click="$store.commit('main/setSnackbarSuccess')"
+        >
           Close
         </v-btn>
       </template>

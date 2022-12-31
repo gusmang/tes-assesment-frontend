@@ -9,6 +9,22 @@ export function apiFetchTransactionMember(data) {
     })
 }
 
+export function apiFetchTransactionCorporate(data) {
+    return request_util({
+        url: '/admin/corporate/trx',
+        method: 'POST',
+        data: data
+    })
+}
+
+export function exportMemberCorpTrx(data) {
+    return request_util_download({
+        url:  '/admin/corporate/trx-export',
+        method: 'POST',
+        data: data
+    })
+}
+
 export function apiManualTrx(data) {
     return request_util({
         url: '/admin/trx/trxManual',

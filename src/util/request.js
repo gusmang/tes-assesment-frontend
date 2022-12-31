@@ -1,15 +1,15 @@
 const { default: axios } = require("axios");
 const { apiUrl } = require("../api/apiUrl")
 
-const Token = "yukbelajar-dashboard"
+const Token = "din-dashboard"
 
+//dinaran url
 const service = axios.create({
     baseURL: apiUrl,
     timeout: 1000000,
     method: 'POST',
     withCredentials: false
 });
-
 //service.defaults.withCredentials = true
 
 service.interceptors.request.use(
@@ -17,7 +17,7 @@ service.interceptors.request.use(
         if (localStorage.getItem(Token)) {
             config.headers['Authorization'] = `Bearer ` + localStorage.getItem(Token)
         }
-        config.headers['content-Type'] = 'multipart/form-data'
+        // config.headers['content-Type'] = 'multipart/form-data'
         // config.headers['responseHeader'] = ["Content-Type"]
         // config.headers['origin'] = '*'
         // config.headers['maxAgeSeconds'] = 1800
@@ -38,7 +38,7 @@ service.interceptors.response.use(
         console.log(error)
         if (error.response.status === 401) {
             //alert("tes1"); 
-            window.location.href = '/'
+            //window.location.href = '/'
         }
         return Promise.reject(error)
     }

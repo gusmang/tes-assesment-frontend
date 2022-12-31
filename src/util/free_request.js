@@ -1,9 +1,10 @@
 const { default: axios } = require("axios");
-const { apiUrl } = require("../api/apiUrl")
+//const { apiUrl } = require("../api/apiUrl")
 //import store from '../store'
 
+//utils
 const service = axios.create({
-    baseURL: apiUrl,
+    //baseURL: apiUrl,
     timeout: 100000,
     // proxy: {
     //     host: 'kost.dinaran-gold.com',
@@ -23,7 +24,7 @@ service.interceptors.request.use(
     (config) => {
         // store.commit('setIsAdmin', true)
         //store.isAdmin = true
-        config.headers['content-Type'] = 'multipart/form-data'
+        // config.headers['content-Type'] = 'multipart/form-data'
         return config
     },
     (error) => {

@@ -26,6 +26,14 @@ export function apiHitDataGoldChart(data) {
     })
 }
 
+export function apiFetchRatesByDate(data){
+    return request_util({
+        url: '/admin/goldrate/getRates',
+        method: 'POST',
+        data: data
+    })
+}
+
 export function ApiExportTrxExcel(data){
     return request_util_download({
         url: '/admin/export/goldrate',

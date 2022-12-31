@@ -1,5 +1,5 @@
-const Token = "yukbelajar-dashboard"
-const Profile = "yukbelajar-dashboard-profile"
+const Token = "din-dashboard"
+const Profile = "din-dashboard-profile"
 
 export function getToken() {
     return localStorage.getItem(Token)
